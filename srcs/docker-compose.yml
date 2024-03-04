@@ -1,0 +1,36 @@
+version: "0.37"
+
+name: inception
+
+services:
+  nginx:
+    build: ./requirements/nginx
+    #image: nginx
+    container_name: nginx_container
+    #depends_on:
+      #- worpress
+    ports:
+      - "443:443"
+    networks:
+      - it-networks
+    restart: always
+    volumes:
+      - wp-data:/var/www/html/
+
+volumes:
+  db:
+    driver: local
+    driver_opts:
+      type: none
+      device: /home/nlonka/data/db
+      o: bind
+
+  wp-data:
+    driver: local
+    driver_opts:
+      type: none
+      device: /home/nlonka/data/wp-data
+      o: bind
+
+networks:
+  it-networks:
