@@ -1,14 +1,13 @@
 FROM alpine:3.18
 
-RUN << EOF 
-apk update
-apk add --no-cache nginx 
-apk add --no-cache openssl
-adduser -D -H -s /sbin/nologin -g www-data -G www-data www-data
-mkdir -p /etc/nginx/ssl
-chmod 755 /var/www/html
-chown -R www-data:www-data /var/www/html
-EOF
+RUN apk update && \
+	apk add --no-cache nginx \
+	openssl
+
+RUN	adduser -D -H -s /sbin/nologin -g www-data -G www-data www-data && \
+	mkdir -p /etc/nginx/ssl && \
+	chmod 755 /var/www/html && \
+	chown -R www-data:www-data /var/www/html
 
 RUN openssl req -x509 -sha256 -days 365 -nodes -newkey rsa:2048 \
 	-keyout /etc/nginx/ssl/certificate.key \

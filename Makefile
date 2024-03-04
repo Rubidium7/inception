@@ -5,9 +5,6 @@ DATA_DIR=/home/nlonka/data
 WP_PATH=$(DATA_DIR)/wp-data
 DB_PATH=$(DATA_DIR)/db
 
-#"/home/nlonka/data/wp-data"
-#"/home/nlonka/data/db"
-
 .PHONY: all
 all:
 	@if [ ! -d $(WP_PATH) ]; then \
