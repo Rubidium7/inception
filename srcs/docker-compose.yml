@@ -5,7 +5,7 @@ name: inception
 services:
   nginx:
     build: ./requirements/nginx
-    #image: nginx
+    image: nginx
     container_name: nginx_container
     #depends_on:
       #- worpress
@@ -15,7 +15,7 @@ services:
       - it-networks
     restart: always
     volumes:
-      - wp-data:/var/www/html/
+      - wp-data:/var/www/html
 
 volumes:
   db:
