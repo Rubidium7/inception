@@ -12,7 +12,7 @@ RUN	mkdir -p /etc/nginx/ssl /run/nginx && \
 RUN openssl req -x509 -sha256 -days 365 -nodes -newkey rsa:2048 \
 	-keyout /etc/nginx/ssl/certificate.key \
 	-out /etc/nginx/ssl/certificate.crt \
-	-subj "/C=FI/ST=Helsinki/L=Helsinki/O=42/OU=Hive/CN=nlonka.42.fr"
+	-subj "/C=FI/ST=Helsinki/L=Helsinki/O=42/OU=Hive/CN=$DOMAIN_NAME"
 
 COPY ./tools/index.html /var/www/html
 

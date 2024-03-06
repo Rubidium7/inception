@@ -7,8 +7,8 @@ services:
     build: ./requirements/nginx
     image: nginx
     container_name: nginx_container
-    #depends_on:
-      #- worpress
+    depends_on:
+      - worpress
     ports:
       - "443:443"
     networks:
@@ -16,6 +16,33 @@ services:
     restart: always
     volumes:
       - wp-data:/var/www/html
+    env_file: .env
+  mariadb:
+    build: ./requirements/mariadb
+    image: mariadb
+    container_name: mariadb_container
+    ports:
+      - "3306:3306"
+    networks:
+      - it-networks
+    restart: always
+    volumes:
+      - db:/var/lib/mysql
+    env_file: .env
+  wordpress:
+    build: ./requirements/wordpress
+    image: wordpress
+    container_name: wordpress_container
+    depends_on:
+      - mariadb
+    ports:
+      - "9000:9000"
+    networks:
+      - it-networks
+    restart: always
+    volumes:
+      - wp-data:/var/www/html
+    env_file: .env
 
 volumes:
   db:
