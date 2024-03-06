@@ -23,23 +23,28 @@ mkdir -p /var/lib/mysql /run/mysqld  /var/log/mysql
 chown -R mysql:mysql /var/lib/mysql
 chown -R mysql:mysql /run/mysqld
 chown -R mysql:mysql /var/log/mysql
-touch /var/log/mysql/error.err
 
-#initializing database
-mysql_install_db --user=mysql --basedir=/usr --datadir=/var/lib/mysql --rpm > /dev/null
+if [ -f "/var/lib/mysql/.done" ]; then
+	echo "database already initialized"
+else
+	touch /var/log/mysql/error.err
+	#initializing database
+	mysql_install_db --user=mysql --basedir=/usr --datadir=/var/lib/mysql --rpm > /dev/null
 
-#creating user, database and granting privileges
-mysqld --user=mysql --bootstrap << EOF
-USE mysql;
-FLUSH PRIVILEGES;
+	#creating user, database and granting privileges
+	mysqld --user=mysql --bootstrap << EOF
+	USE mysql;
+	FLUSH PRIVILEGES;
 
-ALTER USER 'root'@'localhost' IDENTIFIED BY '$DB_ROOT_PASSWD';
-CREATE DATABASE IF NOT EXISTS $DB_NAME CHARACTER SET utf8 COLLATE utf8_general_ci;
-CREATE USER '$DB_USER'@'%' IDENTIFIED BY '$DB_USER_PASSWD';
-GRANT ALL PRIVILEGES ON $DB_NAME.* TO '$DB_USER'@'%';
+	ALTER USER 'root'@'localhost' IDENTIFIED BY '$DB_ROOT_PASSWD';
+	CREATE DATABASE IF NOT EXISTS $DB_NAME CHARACTER SET utf8 COLLATE utf8_general_ci;
+	CREATE USER '$DB_USER'@'%' IDENTIFIED BY '$DB_USER_PASSWD';
+	GRANT ALL PRIVILEGES ON $DB_NAME.* TO '$DB_USER'@'%';
 
-FLUSH PRIVILEGES;
+	FLUSH PRIVILEGES;
 EOF
+touch /var/lin/mysql/.done
+fi
 
 #starting database
 exec mysqld_safe --defaults-file=/etc/my.cnf.d/my.cnf
