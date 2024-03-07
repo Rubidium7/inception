@@ -24,13 +24,15 @@ fi
 if [ -f "/var/www/html/.done" ]; then
 	echo "wordpress already set up" 
 else
-	
+	echo "starting wordpress setup"	
 	wp config create \
 		--dbname=$DB_NAME \
 		--dbuser=$DB_USER \
 		--dbpass=$DB_USER_PASSWD \
 		--dbhost=mariadb \
 		--force
+
+	echo "wordpress config set"	
 
 	wp core install \
 		--url=$DOMAIN_NAME \
@@ -42,11 +44,15 @@ else
 		--skip-email \
 		--allow-root
 	
+	echo "wordpress core installed"
+
 	wp user create \
 		$WP_USER $WP_USER_EMAIL \
 		--role=editor \
 		--user_pass=$WP_USER_PASSWD \
 		--path=/var/www/html/
+
+	echo "wordpress user created"
 
 	wp theme install kubio \
 		--activate \
@@ -56,6 +62,7 @@ else
 	wp option update siteurl "https://$DOMAIN_NAME"
 	wp option update home "https://$DOMAIN_NAME"
 	touch /var/www/html/.done
+	echo "wordpress setup done!"
 fi
 
 chown -R www:www /var/www/html

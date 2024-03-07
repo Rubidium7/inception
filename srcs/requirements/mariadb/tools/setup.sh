@@ -1,5 +1,7 @@
 #checking the .env file
 
+echo "checking envs.."
+
 if [ -z "$DOMAIN_NAME" ]; then
 	echo "Error: DOMAIN_NAME env is not set"
 	exit 1
@@ -18,7 +20,10 @@ if [ -z "$DB_NAME" ] || [ -z "$DB_ROOT_PASSWD" ] ||
 	exit 1
 fi
 
+echo "all necessary envs set!"
+
 #creating necessary directories
+echo "creating database directories.."
 mkdir -p /var/lib/mysql /run/mysqld  /var/log/mysql
 chown -R mysql:mysql /var/lib/mysql
 chown -R mysql:mysql /run/mysqld
@@ -27,6 +32,7 @@ chown -R mysql:mysql /var/log/mysql
 if [ -f "/var/lib/mysql/.done" ]; then
 	echo "database already initialized"
 else
+	echo "initializing the database.."
 	touch /var/log/mysql/error.err
 	#initializing database
 	mysql_install_db --user=mysql --basedir=/usr --datadir=/var/lib/mysql --rpm > /dev/null
@@ -43,6 +49,7 @@ else
 
 	FLUSH PRIVILEGES;
 EOF
+echo "database initialization done!"
 touch /var/lin/mysql/.done
 fi
 

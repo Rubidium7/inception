@@ -9,20 +9,21 @@ all:
 	@if [ ! -d $(WP_PATH) ]; then \
 		mkdir -p $(WP_PATH); \
 	fi
-	@if [ ! -d $(DB_PATH)]; then \
+	@if [ ! -d $(DB_PATH) ]; then \
 		mkdir -p $(DB_PATH); \
 	fi
 	sudo docker-compose -f $(DOCKER_FILE) up -d
 
 .PHONY: clean
 clean:
-	sudo docker-compose -f $(DOCKER_FILE) down
+	sudo docker-compose -f $(DOCKER_FILE) down --rmi all -v
 
 .PHONY: fclean
 fclean: clean
 	@if [ -d $(DATA_DIR) ]; then \
 		sudo rm -rf $(DATA_DIR); \
 	fi;
+	sudo docker system prune -f
 
 .PHONY: re
 re: fclean all
