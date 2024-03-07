@@ -12,4 +12,4 @@ RUN chmod +x /tmp/setup.sh
 
 EXPOSE 3306
 
-ENTRYPOINT ["/tmp/setup.sh"]
+CMD ["sh", "/tmp/setup.sh"]

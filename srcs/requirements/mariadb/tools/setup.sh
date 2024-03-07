@@ -42,10 +42,10 @@ else
 	USE mysql;
 	FLUSH PRIVILEGES;
 
-	ALTER USER 'root'@'localhost' IDENTIFIED BY '$DB_ROOT_PASSWD';
-	CREATE DATABASE IF NOT EXISTS $DB_NAME CHARACTER SET utf8 COLLATE utf8_general_ci;
-	CREATE USER '$DB_USER'@'%' IDENTIFIED BY '$DB_USER_PASSWD';
-	GRANT ALL PRIVILEGES ON $DB_NAME.* TO '$DB_USER'@'%';
+	ALTER USER 'root'@'localhost' IDENTIFIED BY '${DB_ROOT_PASSWD}';
+	CREATE DATABASE ${DB_NAME} CHARACTER SET utf8 COLLATE utf8_general_ci;
+	CREATE USER '${DB_USER}'@'%' IDENTIFIED by '${DB_USER_PASSWD}';
+	GRANT ALL PRIVILEGES ON ${DB_NAME}.* TO '${DB_USER}'@'%';
 
 	FLUSH PRIVILEGES;
 EOF
@@ -54,4 +54,4 @@ touch /var/lin/mysql/.done
 fi
 
 #starting database
-exec mysqld_safe --defaults-file=/etc/my.cnf.d/my.cnf
+exec mysqld_safe "--defaults-file=/etc/my.cnf.d/my.cnf"
