@@ -1,3 +1,4 @@
+#!/bin/sh
 
 MAX_RETRIES=7
 
@@ -5,7 +6,7 @@ RETRY_INTERVAL=5
 
 attempts=0
 
-while [ $attemps -lt $MAX_RETRIES ]; do
+while [ $attempts -lt $MAX_RETRIES ]; do
 	if wget --spider -q mariadb:3306; then
 		echo "mariadb ready for wordpress"
 		break
@@ -16,7 +17,7 @@ while [ $attemps -lt $MAX_RETRIES ]; do
 	attempts=$((attempts + 1))
 done
 
-if [ $attemps -eq $MAX_RETRIES ]; then
+if [ $attempts -eq $MAX_RETRIES ]; then
 	echo "mariadb took too long, wordpress setup.sh exiting.."
 	exit 1
 fi
