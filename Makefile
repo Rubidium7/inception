@@ -23,6 +23,10 @@ all:
 	fi
 	sudo docker compose -f $(DOCKER_FILE) -p $(NAME) up --build --detach
 
+.PHONY: down
+down:
+	sudo docker compose -f $(DOCKER_FILE) down
+
 .PHONY: clean
 clean:
 	sudo docker compose -f $(DOCKER_FILE) down --rmi all -v
