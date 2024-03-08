@@ -1,5 +1,6 @@
 FROM alpine:3.18.6
 
+#debug vv
 ENV DOMAIN_NAME=nlonka.42.fr
 
 RUN apk update && \

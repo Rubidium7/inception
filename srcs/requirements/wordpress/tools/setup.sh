@@ -22,6 +22,9 @@ if [ $attempts -eq $MAX_RETRIES ]; then
 	exit 1
 fi
 
+mkdir -p var/www/html/wordpress /run/php
+cd /var/www/html/
+
 if [ -f "/var/www/html/.done" ]; then
 	echo "wordpress already set up" 
 else
@@ -31,6 +34,7 @@ else
 		--dbuser=$DB_USER \
 		--dbpass=$DB_USER_PASSWD \
 		--dbhost=mariadb \
+		--path=/var/www/html/ \
 		--force
 
 	echo "wordpress config set"	
@@ -41,7 +45,7 @@ else
 		--admin_user=$WP_ADMIN \
 		--admin_password=$WP_ADMIN_PASSWD \
 		--admin_email=$WP_ADMIN_EMAIL \
-		--path=/var/www/html \
+		--path=/var/www/html/ \
 		--skip-email \
 		--allow-root
 	
@@ -54,8 +58,8 @@ else
 		--path=/var/www/html/
 
 	echo "wordpress user created"
-
-	wp theme install kubio \
+#kubio
+	wp theme install bravada \
 		--activate \
 		--allow-root
 

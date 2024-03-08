@@ -24,8 +24,7 @@ RUN apk update && \
 RUN mkdir -p /var/lib/mysql /run/mysqld /var/log/mysql && \
 	chown -R mysql:mysql /var/lib/mysql && \
 	chown -R mysql:mysql /run/mysqld && \
-	chown -R mysql:mysql /var/log/mysql && \
-	touch /var/log/mysql/error.err
+	chown -R mysql:mysql /var/log/mysql
 
 COPY ./conf/my.cnf /etc/my.cnf.d/my.cnf
 

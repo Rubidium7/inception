@@ -20,17 +20,15 @@ RUN apk update && \
 	wget \
 	libzip
 
-RUN mkdir -p /var/www/html /run/php
-
 ADD https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar /usr/local/bin/wp
 
 RUN chmod +x /usr/local/bin/wp
 
 COPY ./conf/www.conf /etc/php81/php-fpm.d/www.conf
 
-COPY ./tools/setup.sh /tmp/
+COPY ./tools/setup.sh /tmp/setup.sh
 RUN chmod +x /tmp/setup.sh
 
 EXPOSE 9000
 
-ENTRYPOINT ["/tmp/setup.sh"]
+CMD ["sh", "/tmp/setup.sh"]
