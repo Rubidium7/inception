@@ -1,3 +1,4 @@
+NAME=inception
 DOCKER_FILE=./srcs/docker-compose.yml
 ENV=./srcs/.env
 DATA_DIR=/home/nlonka/data
@@ -12,11 +13,11 @@ all:
 	@if [ ! -d $(DB_PATH) ]; then \
 		mkdir -p $(DB_PATH); \
 	fi
-	sudo docker-compose -f $(DOCKER_FILE) up -d
+	sudo docker compose -f $(DOCKER_FILE) -p $(NAME) up --build --detach
 
 .PHONY: clean
 clean:
-	sudo docker-compose -f $(DOCKER_FILE) down --rmi all -v
+	sudo docker compose -f $(DOCKER_FILE) down --rmi all -v
 
 .PHONY: fclean
 fclean: clean
