@@ -28,6 +28,9 @@ cd /var/www/html/
 if [ -f "/var/www/html/.done" ]; then
 	echo "wordpress already set up" 
 else
+	echo "downloading wordpress.."
+	wp core download --allow-root
+
 	echo "starting wordpress setup"	
 	wp config create \
 		--dbname=$DB_NAME \
@@ -59,7 +62,7 @@ else
 
 	echo "wordpress user created"
 #kubio
-	wp theme install bravada \
+	wp theme install kubio \
 		--activate \
 		--allow-root
 
@@ -73,4 +76,4 @@ fi
 chown -R www:www /var/www/html
 chmod -R 775 /var/www/html
 
-exec /usr/sbin/php-fmp81 -F
+exec /usr/sbin/php-fpm81 -F

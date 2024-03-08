@@ -9,10 +9,10 @@ DB_PATH=$(DATA_DIR)/$(DB_VOL)
 
 .PHONY: all
 all:
-	if ! grep -q "nlonka.42.fr" /etc/hosts; then \
+	@if ! grep -q "nlonka.42.fr" /etc/hosts; then \
 		sudo echo "127.0.0.1 nlonka.42.fr" >> /etc/hosts; \
 	fi
-	if ! grep -q "www.nlonka.42.fr" /etc/hosts; then \
+	@if ! grep -q "www.nlonka.42.fr" /etc/hosts; then \
 		sudo echo "127.0.0.1 www.nlonka.42.fr" >> /etc/hosts; \
 	fi
 	@if [ ! -d $(WP_PATH) ]; then \
