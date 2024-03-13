@@ -6,7 +6,7 @@ services:
   nginx:
     build: ./requirements/nginx
     image: nginx
-    container_name: nginx_container
+    container_name: nginx
     depends_on:
       - wordpress
     ports:
@@ -20,9 +20,7 @@ services:
   mariadb:
     build: ./requirements/mariadb
     image: mariadb
-    container_name: mariadb_container
-#    ports:
-#      - "3306:3306"
+    container_name: mariadb
     networks:
       - it-networks
     restart: always
@@ -32,11 +30,9 @@ services:
   wordpress:
     build: ./requirements/wordpress
     image: wordpress
-    container_name: wordpress_container
+    container_name: wordpress
     depends_on:
       - mariadb
-#    ports:
-#      - "9000:9000"
     networks:
       - it-networks
     restart: always
