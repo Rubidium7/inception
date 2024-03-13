@@ -62,7 +62,7 @@ else
 
 	echo "wordpress user created"
 #kubio
-	wp theme install kubio \
+	wp theme install fluida \
 		--activate \
 		--allow-root
 
